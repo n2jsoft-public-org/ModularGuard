@@ -216,7 +216,7 @@ public class ReportExporterTests
         // Assert
         Assert.NotNull(output);
         Assert.NotEmpty(output);
-        Assert.StartsWith("Severity,Project,InvalidReference,RuleName,Description,Suggestion,DocumentationUrl", output);
+        Assert.StartsWith("Severity,Project,InvalidReference,RuleName,Description,FilePath,LineNumber,ColumnNumber,Suggestion,DocumentationUrl", output);
     }
 
     [Fact]

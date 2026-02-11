@@ -72,6 +72,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- **Output Behavior**: Non-Console formats (`json`, `markdown`, `sarif`, `csv`) now suppress verbose console output (project tables, scanning messages) by default for clean, parseable output. Use `--verbose` flag to see progress messages with structured formats.
+
 ### Planned Features
 - Circular dependency detection
 - Dependency graph visualization
@@ -79,7 +82,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Watch mode for real-time validation
 - IDE integration (LSP)
 - Performance optimizations with caching
-- SARIF output format for IDE integration
 
 ---
 
