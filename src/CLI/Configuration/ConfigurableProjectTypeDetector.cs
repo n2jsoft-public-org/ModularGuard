@@ -61,10 +61,12 @@ public sealed class ConfigurableProjectTypeDetector
         // Normalize paths for comparison
         var normalizedProjectPath = NormalizePath(projectFilePath);
         var normalizedRootPath = NormalizePath(solutionRootPath);
-        var sharedDirectory = Path.Combine(normalizedRootPath, _sharedWorkingDirectory);
+        var sharedDirectory = NormalizePath(Path.Combine(normalizedRootPath, _sharedWorkingDirectory));
 
         // Determine if project is inside shared working directory
-        var isInSharedDirectory = normalizedProjectPath.StartsWith(sharedDirectory, StringComparison.OrdinalIgnoreCase);
+        // Add trailing separator to ensure we're checking directory boundaries
+        var sharedDirectoryWithSeparator = sharedDirectory.TrimEnd('/') + "/";
+        var isInSharedDirectory = normalizedProjectPath.StartsWith(sharedDirectoryWithSeparator, StringComparison.OrdinalIgnoreCase);
 
         if (isInSharedDirectory)
         {
