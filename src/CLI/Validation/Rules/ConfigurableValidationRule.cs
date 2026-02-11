@@ -23,7 +23,7 @@ public sealed class ConfigurableValidationRule : IValidationRule
         _configuration = configuration;
     }
 
-    public string RuleName => $"ConfigurableRule[{_projectType}]";
+    public string RuleName => $"ConfigurableRule({_projectType})";
 
     public bool AppliesTo(ModuleInfo module)
     {

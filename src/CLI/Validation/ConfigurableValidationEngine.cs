@@ -79,7 +79,7 @@ public sealed class ConfigurableValidationEngine
 
         if (_verbose && violations.Any())
         {
-            AnsiConsole.MarkupLine("[dim]Applied severity overrides, total violations: {0}[/]", violations.Count);
+            AnsiConsole.WriteLine($"Applied severity overrides, total violations: {violations.Count}");
         }
 
         return violations;
