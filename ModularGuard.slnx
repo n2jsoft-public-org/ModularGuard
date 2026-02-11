@@ -8,5 +8,10 @@
     </Folder>
     <Folder Name="/_/">
         <File Path="AGENTS.md" />
+        <File Path="CHANGELOG.md" />
+        <File Path="compose.yml" />
+        <File Path="LICENSE" />
+        <File Path="Makefile" />
+        <File Path="README.md" />
     </Folder>
 </Solution>
