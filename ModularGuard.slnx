@@ -10,6 +10,8 @@
         <File Path="AGENTS.md" />
         <File Path="CHANGELOG.md" />
         <File Path="compose.yml" />
+        <File Path="install.ps1" />
+        <File Path="install.sh" />
         <File Path="LICENSE" />
         <File Path="Makefile" />
         <File Path="README.md" />

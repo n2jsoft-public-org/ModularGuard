@@ -6,7 +6,7 @@ param()
 $ErrorActionPreference = 'Stop'
 
 # Configuration
-$Repo = "n2jsoft/modularguard"
+$Repo = "n2jsoft-public-org/ModularGuard"
 $InstallDir = Join-Path $env:USERPROFILE ".local\bin"
 $BinaryName = "modularguard.exe"
 
