@@ -14,7 +14,37 @@ architectural rules to maintain clean boundaries between modules.
 
 ## Installation
 
-### Option 1: Docker Image (Recommended)
+### Quick Install (Recommended)
+
+Install ModularGuard with a single command:
+
+#### Linux/macOS
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/n2jsoft/modularguard/main/install.sh | bash
+```
+
+Or with wget:
+
+```bash
+wget -qO- https://raw.githubusercontent.com/n2jsoft/modularguard/main/install.sh | bash
+```
+
+#### Windows (PowerShell)
+
+```powershell
+irm https://raw.githubusercontent.com/n2jsoft/modularguard/main/install.ps1 | iex
+```
+
+The installation script will:
+- Detect your platform and architecture automatically
+- Download the latest release
+- Install to `~/.local/bin` (Linux/macOS) or `%USERPROFILE%\.local\bin` (Windows)
+- Configure your PATH if needed
+
+### Alternative Installation Methods
+
+#### Option 1: Docker Image
 
 Pull the latest Docker image from GitHub Container Registry:
 
@@ -22,14 +52,16 @@ Pull the latest Docker image from GitHub Container Registry:
 docker pull ghcr.io/n2jsoft/modularguard:latest
 ```
 
-### Option 2: Download Pre-built Binary
+#### Option 2: Manual Binary Download
 
 Download the latest release for your platform from the [releases page](https://github.com/n2jsoft/modularguard/releases):
 
 - **Linux (x64)**: `modularguard-linux-x64.tar.gz`
+- **Linux (ARM64)**: `modularguard-linux-arm64.tar.gz`
 - **macOS (x64)**: `modularguard-osx-x64.tar.gz`
 - **macOS (ARM64)**: `modularguard-osx-arm64.tar.gz`
 - **Windows (x64)**: `modularguard-win-x64.zip`
+- **Windows (ARM64)**: `modularguard-win-arm64.zip`
 
 Extract and optionally add to your PATH:
 
@@ -37,14 +69,16 @@ Extract and optionally add to your PATH:
 # Linux/macOS
 tar -xzf modularguard-*.tar.gz
 chmod +x modularguard
-sudo mv modularguard /usr/local/bin/
+mkdir -p ~/.local/bin
+mv modularguard ~/.local/bin/
+# Add ~/.local/bin to your PATH if needed
 
 # Windows (PowerShell)
 Expand-Archive modularguard-win-x64.zip
-# Add the extracted directory to your PATH
+# Move to a directory in your PATH
 ```
 
-### Option 3: Build from Source
+#### Option 3: Build from Source
 
 ```bash
 # Clone the repository
