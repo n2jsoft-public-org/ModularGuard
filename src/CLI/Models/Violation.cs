@@ -8,7 +8,10 @@ public sealed record Violation(
     ViolationSeverity Severity,
     string? Suggestion = null,
     string? DocumentationUrl = null,
-    bool IsAutoFixable = true);
+    bool IsAutoFixable = true,
+    string? FilePath = null,
+    int? LineNumber = null,
+    int? ColumnNumber = null);
 
 public enum ViolationSeverity
 {

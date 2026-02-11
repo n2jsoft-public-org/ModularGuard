@@ -129,33 +129,60 @@ dotnet run --project src/CLI -- check /path/to/your/project
 
 ### Output Formats
 
+ModularGuard supports multiple output formats for different use cases:
+
 ```bash
-# Docker
-docker run --rm -v $(pwd):/workspace ghcr.io/n2jsoft-public-org/modularguard:latest check /workspace --format json --output /workspace/report.json
-docker run --rm -v $(pwd):/workspace ghcr.io/n2jsoft-public-org/modularguard:latest check /workspace --format markdown --output /workspace/report.md
+# Console format (default) - Rich interactive output with tables
+modularguard check .
 
-# Binary
-modularguard check . --format json --output report.json
-modularguard check . --format markdown --output report.md
+# JSON format - Clean structured output (no console tables)
 modularguard check . --format json
+modularguard check . --format json --output report.json
 
-# Source
-dotnet run --project src/CLI -- check . --format json --output report.json
-dotnet run --project src/CLI -- check . --format markdown --output report.md
+# Markdown format - Clean markdown report (no console tables)
+modularguard check . --format markdown --output report.md
+
+# SARIF format - For IDE/tooling integration (no console tables)
+modularguard check . --format sarif --output report.sarif.json
+
+# CSV format - For spreadsheet analysis (no console tables)
+modularguard check . --format csv --output report.csv
+```
+
+**Note**: When using non-Console formats (`json`, `markdown`, `sarif`, `csv`), the tool automatically suppresses verbose console output (project tables, scanning messages) to produce clean, parseable output. Use `--verbose` to see progress messages even with structured formats.
+
+#### Docker Examples
+
+```bash
+# JSON output
+docker run --rm -v $(pwd):/workspace ghcr.io/n2jsoft-public-org/modularguard:latest check /workspace --format json --output /workspace/report.json
+
+# Markdown output
+docker run --rm -v $(pwd):/workspace ghcr.io/n2jsoft-public-org/modularguard:latest check /workspace --format markdown --output /workspace/report.md
 ```
 
 ### Verbosity Options
 
 ```bash
-# Docker - Quiet mode (minimal output, good for CI/CD)
-docker run --rm -v $(pwd):/workspace ghcr.io/n2jsoft-public-org/modularguard:latest check /workspace --quiet
+# Quiet mode (minimal output, good for CI/CD)
+modularguard check . --quiet
 
-# Binary - Verbose mode (includes file paths)
+# Verbose mode (includes file paths and detailed progress)
 modularguard check . --verbose
 
-# Source - Quiet mode
-dotnet run --project src/CLI -- check . --quiet
+# Verbose with structured format (shows progress + structured output)
+modularguard check . --format json --verbose
+
+# Docker examples
+docker run --rm -v $(pwd):/workspace ghcr.io/n2jsoft-public-org/modularguard:latest check /workspace --quiet
+docker run --rm -v $(pwd):/workspace ghcr.io/n2jsoft-public-org/modularguard:latest check /workspace --verbose
 ```
+
+**Behavior Summary:**
+- **Console format**: Shows all tables and messages by default
+- **Non-Console formats** (`json`, `markdown`, `sarif`, `csv`): Suppresses tables and scanning messages for clean output
+- **`--verbose`**: Shows progress messages with any format
+- **`--quiet`**: Minimal output (only errors) with any format
 
 ## Architectural Rules
 

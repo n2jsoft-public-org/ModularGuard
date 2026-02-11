@@ -59,6 +59,9 @@ internal sealed class ViolationReport
     public string Description { get; init; } = string.Empty;
     public string? Suggestion { get; init; }
     public string? DocumentationUrl { get; init; }
+    public string? FilePath { get; init; }
+    public int? LineNumber { get; init; }
+    public int? ColumnNumber { get; init; }
 }
 
 public sealed class JsonReportExporter : IReportExporter
@@ -95,7 +98,10 @@ public sealed class JsonReportExporter : IReportExporter
                 RuleName = v.RuleName,
                 Description = v.Description,
                 Suggestion = v.Suggestion,
-                DocumentationUrl = v.DocumentationUrl
+                DocumentationUrl = v.DocumentationUrl,
+                FilePath = v.FilePath,
+                LineNumber = v.LineNumber,
+                ColumnNumber = v.ColumnNumber
             }).ToList()
         };
 

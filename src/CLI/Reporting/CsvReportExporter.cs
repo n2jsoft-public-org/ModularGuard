@@ -14,7 +14,7 @@ public sealed class CsvReportExporter : IReportExporter
         var sb = new StringBuilder();
 
         // CSV Header
-        sb.AppendLine("Severity,Project,InvalidReference,RuleName,Description,Suggestion,DocumentationUrl");
+        sb.AppendLine("Severity,Project,InvalidReference,RuleName,Description,FilePath,LineNumber,ColumnNumber,Suggestion,DocumentationUrl");
 
         // CSV Rows
         foreach (var violation in validationResult.Violations.OrderBy(v => v.Severity).ThenBy(v => v.ProjectName))
@@ -25,6 +25,9 @@ public sealed class CsvReportExporter : IReportExporter
                 $"{EscapeCsvField(violation.InvalidReference)}," +
                 $"{EscapeCsvField(violation.RuleName)}," +
                 $"{EscapeCsvField(violation.Description)}," +
+                $"{EscapeCsvField(violation.FilePath ?? string.Empty)}," +
+                $"{violation.LineNumber?.ToString() ?? string.Empty}," +
+                $"{violation.ColumnNumber?.ToString() ?? string.Empty}," +
                 $"{EscapeCsvField(violation.Suggestion ?? string.Empty)}," +
                 $"{EscapeCsvField(violation.DocumentationUrl ?? string.Empty)}");
         }

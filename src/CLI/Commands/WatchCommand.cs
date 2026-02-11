@@ -246,20 +246,30 @@ public sealed class WatchCommand : Command<WatchCommand.Settings>
                 _ => ""
             };
 
+            var locationSuffix = string.Empty;
+            if (!string.IsNullOrEmpty(violation.FilePath) && violation.LineNumber.HasValue)
+            {
+                locationSuffix = violation.ColumnNumber.HasValue
+                    ? $" [dim]({violation.FilePath}:{violation.LineNumber}:{violation.ColumnNumber})[/]"
+                    : $" [dim]({violation.FilePath}:{violation.LineNumber})[/]";
+            }
+
             if (verbose)
             {
-                AnsiConsole.MarkupLine("  {0} [cyan]{1}[/] → [yellow]{2}[/]",
+                AnsiConsole.MarkupLine("  {0} [cyan]{1}[/] → [yellow]{2}[/]{3}",
                     severityIcon,
                     violation.ProjectName,
-                    violation.InvalidReference);
+                    violation.InvalidReference,
+                    locationSuffix);
                 AnsiConsole.MarkupLine("     [dim]{0}[/]", violation.Description);
             }
             else
             {
-                AnsiConsole.MarkupLine("  {0} [cyan]{1}[/] → [yellow]{2}[/]",
+                AnsiConsole.MarkupLine("  {0} [cyan]{1}[/] → [yellow]{2}[/]{3}",
                     severityIcon,
                     violation.ProjectName,
-                    violation.InvalidReference);
+                    violation.InvalidReference,
+                    locationSuffix);
             }
         }
     }

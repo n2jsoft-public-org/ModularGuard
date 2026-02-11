@@ -37,7 +37,9 @@ public sealed class CheckCommand : Command<CheckCommand.Settings>
         var hasConfigFile = configuration != null;
         configuration ??= configLoader.CreateDefaultConfiguration();
 
-        if (!settings.Quiet)
+        var shouldShowConsoleOutput = !settings.Quiet && (settings.Format == OutputFormat.Console || settings.Verbose);
+
+        if (shouldShowConsoleOutput)
         {
             var configSource = hasConfigFile
                 ? "Found configuration file"
@@ -58,7 +60,7 @@ public sealed class CheckCommand : Command<CheckCommand.Settings>
             }
         }
 
-        if (!settings.Quiet)
+        if (shouldShowConsoleOutput)
         {
             AnsiConsole.MarkupLine("[blue]Scanning for projects in:[/] {0}", absolutePath);
             AnsiConsole.WriteLine();
@@ -73,7 +75,7 @@ public sealed class CheckCommand : Command<CheckCommand.Settings>
             return 0;
         }
 
-        if (!settings.Quiet)
+        if (shouldShowConsoleOutput)
         {
             AnsiConsole.MarkupLine("[green]Found {0} project(s)[/]", projectPaths.Count);
 
@@ -174,12 +176,12 @@ public sealed class CheckCommand : Command<CheckCommand.Settings>
             }
         }
 
-        if (!settings.Quiet)
+        if (shouldShowConsoleOutput)
         {
             DisplayProjectSummary(modules, settings.Verbose);
         }
 
-        if (!settings.Quiet)
+        if (shouldShowConsoleOutput)
         {
             AnsiConsole.WriteLine();
             AnsiConsole.MarkupLine("[blue]Validating project references...[/]");
@@ -366,10 +368,20 @@ public sealed class CheckCommand : Command<CheckCommand.Settings>
                 _ => violation.Severity.ToString()
             };
 
+            var locationInfo = string.Empty;
+            if (!string.IsNullOrEmpty(violation.FilePath) && violation.LineNumber.HasValue)
+            {
+                var location = violation.ColumnNumber.HasValue
+                    ? $"{violation.FilePath}:{violation.LineNumber}:{violation.ColumnNumber}"
+                    : $"{violation.FilePath}:{violation.LineNumber}";
+                locationInfo = $"\n[bold]Location:[/] [dim]{location}[/]";
+            }
+
             var violationPanel = new Panel(
                 $"[bold]Project:[/] [cyan]{violation.ProjectName}[/]\n" +
                 $"[bold]Invalid Reference:[/] [yellow]{violation.InvalidReference}[/]\n" +
                 $"[bold]Description:[/] {violation.Description}" +
+                locationInfo +
                 (violation.Suggestion != null ? $"\n[bold]Suggestion:[/] [dim]{violation.Suggestion}[/]" : "") +
                 (violation.DocumentationUrl != null
                     ? $"\n[bold]Documentation:[/] [link]{violation.DocumentationUrl}[/]"
