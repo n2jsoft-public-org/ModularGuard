@@ -60,7 +60,11 @@ public sealed class ConfigurableValidationRule : IValidationRule
                     $"Project of type '{_projectType}' cannot reference '{referencedProjectName}'. This reference is explicitly denied by configuration.",
                     ViolationSeverity.Error,
                     suggestion,
-                    "https://github.com/n2jsoft/modularguard/blob/main/docs/rules.md");
+                    "https://github.com/n2jsoft/modularguard/blob/main/docs/rules.md",
+                    IsAutoFixable: true,
+                    FilePath: reference.FilePath,
+                    LineNumber: reference.LineNumber,
+                    ColumnNumber: reference.ColumnNumber);
                 continue;
             }
 
@@ -75,7 +79,11 @@ public sealed class ConfigurableValidationRule : IValidationRule
                     $"Project of type '{_projectType}' cannot reference '{referencedProjectName}'. This reference is not in the allowed list.",
                     ViolationSeverity.Error,
                     suggestion,
-                    "https://github.com/n2jsoft/modularguard/blob/main/docs/rules.md");
+                    "https://github.com/n2jsoft/modularguard/blob/main/docs/rules.md",
+                    IsAutoFixable: true,
+                    FilePath: reference.FilePath,
+                    LineNumber: reference.LineNumber,
+                    ColumnNumber: reference.ColumnNumber);
             }
         }
     }

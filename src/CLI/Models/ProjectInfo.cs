@@ -8,7 +8,10 @@ public sealed record ProjectInfo(
 public sealed record ProjectReferenceInfo(
     string Path,
     string? OutputItemType,
-    bool ReferenceOutputAssembly)
+    bool ReferenceOutputAssembly,
+    string? FilePath = null,
+    int? LineNumber = null,
+    int? ColumnNumber = null)
 {
     /// <summary>
     ///     Returns true if this is a special reference that should not be considered for optimization

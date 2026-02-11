@@ -16,6 +16,7 @@ namespace n2jSoft.ModularGuard.CLI.Reporting;
 [JsonSerializable(typeof(SarifLocation))]
 [JsonSerializable(typeof(SarifPhysicalLocation))]
 [JsonSerializable(typeof(SarifArtifactLocation))]
+[JsonSerializable(typeof(SarifRegion))]
 [JsonSerializable(typeof(SarifLogicalLocation))]
 [JsonSerializable(typeof(List<SarifRun>))]
 [JsonSerializable(typeof(List<SarifRule>))]
@@ -95,11 +96,18 @@ internal sealed class SarifLocation
 internal sealed class SarifPhysicalLocation
 {
     public SarifArtifactLocation ArtifactLocation { get; init; } = null!;
+    public SarifRegion? Region { get; init; }
 }
 
 internal sealed class SarifArtifactLocation
 {
     public string Uri { get; init; } = string.Empty;
+}
+
+internal sealed class SarifRegion
+{
+    public int? StartLine { get; init; }
+    public int? StartColumn { get; init; }
 }
 
 internal sealed class SarifLogicalLocation
@@ -202,8 +210,13 @@ public sealed class SarifReportExporter : IReportExporter
                     {
                         ArtifactLocation = new SarifArtifactLocation
                         {
-                            Uri = v.ProjectName + ".csproj"
-                        }
+                            Uri = v.FilePath ?? (v.ProjectName + ".csproj")
+                        },
+                        Region = v.LineNumber.HasValue ? new SarifRegion
+                        {
+                            StartLine = v.LineNumber,
+                            StartColumn = v.ColumnNumber
+                        } : null
                     },
                     LogicalLocations = new List<SarifLogicalLocation>
                     {

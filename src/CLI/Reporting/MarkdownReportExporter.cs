@@ -45,6 +45,14 @@ public sealed class MarkdownReportExporter : IReportExporter
                 sb.AppendLine($"- **Invalid Reference**: {violation.InvalidReference}");
                 sb.AppendLine($"- **Description**: {violation.Description}");
 
+                if (!string.IsNullOrEmpty(violation.FilePath) && violation.LineNumber.HasValue)
+                {
+                    var location = violation.ColumnNumber.HasValue
+                        ? $"{violation.FilePath}:{violation.LineNumber}:{violation.ColumnNumber}"
+                        : $"{violation.FilePath}:{violation.LineNumber}";
+                    sb.AppendLine($"- **Location**: `{location}`");
+                }
+
                 if (!string.IsNullOrEmpty(violation.Suggestion))
                 {
                     sb.AppendLine($"- **Suggestion**: {violation.Suggestion}");

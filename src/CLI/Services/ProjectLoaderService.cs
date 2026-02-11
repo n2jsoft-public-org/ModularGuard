@@ -43,10 +43,19 @@ public sealed class ProjectLoaderService : IDisposable
                                                   !referenceOutputAssemblyStr.Equals("false",
                                                       StringComparison.OrdinalIgnoreCase);
 
+                    // Extract location information from the XML element
+                    var location = item.Xml.Location;
+                    var filePath = location.File;
+                    var lineNumber = location.Line;
+                    var columnNumber = location.Column;
+
                     return new ProjectReferenceInfo(
                         item.EvaluatedInclude,
                         string.IsNullOrEmpty(outputItemType) ? null : outputItemType,
-                        referenceOutputAssembly);
+                        referenceOutputAssembly,
+                        string.IsNullOrEmpty(filePath) ? null : filePath,
+                        lineNumber > 0 ? lineNumber : null,
+                        columnNumber > 0 ? columnNumber : null);
                 })
                 .ToList();
 

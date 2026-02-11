@@ -248,13 +248,23 @@ public sealed class FixCommand : Command<FixCommand.Settings>
         table.Border(TableBorder.Rounded);
         table.AddColumn("[bold]Project[/]");
         table.AddColumn("[bold]Invalid Reference[/]");
+        table.AddColumn("[bold]Location[/]");
         table.AddColumn("[bold]Rule[/]");
 
         foreach (var violation in violations)
         {
+            var location = string.Empty;
+            if (!string.IsNullOrEmpty(violation.FilePath) && violation.LineNumber.HasValue)
+            {
+                location = violation.ColumnNumber.HasValue
+                    ? $"{violation.FilePath}:{violation.LineNumber}:{violation.ColumnNumber}"
+                    : $"{violation.FilePath}:{violation.LineNumber}";
+            }
+
             table.AddRow(
                 violation.ProjectName,
                 $"[yellow]{violation.InvalidReference}[/]",
+                $"[dim]{location}[/]",
                 $"[dim]{violation.RuleName}[/]");
         }
 
