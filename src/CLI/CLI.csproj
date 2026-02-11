@@ -18,6 +18,7 @@
         <PackAsTool>true</PackAsTool>
         <ToolCommandName>modularguard</ToolCommandName>
         <TrimmerSingleWarn>false</TrimmerSingleWarn>
+        <AssemblyName>modularguard</AssemblyName>
 
         <!-- Trimming configuration to suppress warnings from reflection-heavy dependencies -->
         <SuppressTrimAnalysisWarnings>false</SuppressTrimAnalysisWarnings>
