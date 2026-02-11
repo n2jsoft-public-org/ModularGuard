@@ -1,0 +1,8 @@
+<Project>
+    <PropertyGroup>
+        <Authors>n2jSoft</Authors>
+        <Company>n2jSoft</Company>
+        <ProductName>ModularGuard</ProductName>
+        <Copyright>$(Company) $([System.DateTime]::Now.ToString(`yyyy`))</Copyright>
+    </PropertyGroup>
+</Project>

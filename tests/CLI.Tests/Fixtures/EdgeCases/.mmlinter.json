@@ -1,0 +1,19 @@
+{
+  "modules": {
+    "patterns": [
+      {
+        "name": "Core",
+        "pattern": "*.Core",
+        "type": "core",
+        "moduleExtraction": "^([^.]+)\\.Core$"
+      }
+    ]
+  },
+  "dependencyRules": {
+    "core": {
+      "allowed": [],
+      "denied": []
+    }
+  },
+  "ignoredProjects": []
+}

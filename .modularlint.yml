@@ -1,0 +1,151 @@
+# Example configuration for Modular Monolith Linter
+modules:
+  patterns:
+    - name: "Core"
+      pattern: "*.Core"
+      type: "core"
+      moduleExtraction: "^(.+)\\.Core$"
+
+    - name: "Infrastructure"
+      pattern: "*.Infrastructure"
+      type: "infrastructure"
+      moduleExtraction: "^(.+)\\.Infrastructure$"
+
+    - name: "AdminApp"
+      pattern: "*.Admin.App"
+      type: "admin-app"
+      moduleExtraction: "^(.+)\\.Admin\\.App$"
+
+    - name: "AdminEndpoints"
+      pattern: "*.Admin.Endpoints"
+      type: "admin-endpoints"
+      moduleExtraction: "^(.+)\\.Admin\\.Endpoints$"
+
+    - name: "PrivateApp"
+      pattern: "*.Private.App"
+      type: "private-app"
+      moduleExtraction: "^(.+)\\.Private\\.App$"
+
+    - name: "PrivateEndpoints"
+      pattern: "*.Private.Endpoints"
+      type: "private-endpoints"
+      moduleExtraction: "^(.+)\\.Private\\.Endpoints$"
+
+    - name: "PublicApp"
+      pattern: "*.Public.App"
+      type: "public-app"
+      moduleExtraction: "^(.+)\\.Public\\.App$"
+
+    - name: "PublicEndpoints"
+      pattern: "*.Public.Endpoints"
+      type: "public-endpoints"
+      moduleExtraction: "^(.+)\\.Public\\.Endpoints$"
+
+    - name: "SharedEvents"
+      pattern: "*.Shared.Events"
+      type: "shared-events"
+      moduleExtraction: "^(.+)\\.Shared\\.Events$"
+
+    - name: "SharedMessages"
+      pattern: "*.Shared.Messages"
+      type: "shared-messages"
+      moduleExtraction: "^(.+)\\.Shared\\.Messages$"
+
+shared:
+  # Optional: Restrict shared projects to a specific directory
+  # workingDirectory: "src/Shared"
+
+  patterns:
+    - name: "SharedCore"
+      pattern: "Shared.Core"
+      type: "shared-core"
+
+    - name: "SharedInfrastructure"
+      pattern: "Shared.Infrastructure"
+      type: "shared-infrastructure"
+
+    - name: "SharedAppAdmin"
+      pattern: "Shared.App.Admin"
+      type: "shared-app-admin"
+
+    - name: "SharedAppPrivate"
+      pattern: "Shared.App.Private"
+      type: "shared-app-private"
+
+    - name: "SharedAppPublic"
+      pattern: "Shared.App.Public"
+      type: "shared-app-public"
+
+dependencyRules:
+  core:
+    allowed:
+      - "Shared.Core"
+    denied:
+      - "*.Infrastructure"
+      - "*.App"
+      - "*.Endpoints"
+
+  infrastructure:
+    allowed:
+      - "Shared.Infrastructure"
+      - "{module}.Core"
+    denied:
+      - "*.App"
+      - "*.Endpoints"
+
+  admin-app:
+    allowed:
+      - "Shared.App.Admin"
+      - "{module}.Core"
+      - "{module}.Infrastructure"
+      - "*.Shared.Events"
+      - "*.Shared.Messages"
+    denied:
+      - "*.Endpoints"
+
+  private-app:
+    allowed:
+      - "Shared.App.Private"
+      - "{module}.Core"
+      - "{module}.Infrastructure"
+      - "*.Shared.Events"
+      - "*.Shared.Messages"
+    denied:
+      - "*.Endpoints"
+
+  public-app:
+    allowed:
+      - "Shared.App.Public"
+      - "{module}.Core"
+      - "{module}.Infrastructure"
+      - "*.Shared.Events"
+      - "*.Shared.Messages"
+    denied:
+      - "*.Endpoints"
+
+  admin-endpoints:
+    allowed:
+      - "{module}.Admin.App"
+    denied:
+      - "*.Core"
+      - "*.Infrastructure"
+
+  private-endpoints:
+    allowed:
+      - "{module}.Private.App"
+    denied:
+      - "*.Core"
+      - "*.Infrastructure"
+
+  public-endpoints:
+    allowed:
+      - "{module}.Public.App"
+    denied:
+      - "*.Core"
+      - "*.Infrastructure"
+
+ignoredProjects:
+  - "*.Tests"
+  - "*.TestHelpers"
+
+severityOverrides: []

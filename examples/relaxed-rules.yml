@@ -1,0 +1,61 @@
+# Relaxed Rules Example
+# This shows how to make the linter less strict with warnings instead of errors
+
+modules:
+  patterns:
+    - name: "Core"
+      pattern: "*.Core"
+      type: "core"
+      moduleExtraction: "^(.+)\\.Core$"
+
+    - name: "Infrastructure"
+      pattern: "*.Infrastructure"
+      type: "infrastructure"
+      moduleExtraction: "^(.+)\\.Infrastructure$"
+
+    - name: "App"
+      pattern: "*.App"
+      type: "app"
+      moduleExtraction: "^(.+)\\.App$"
+
+shared:
+  # workingDirectory: "src/Shared"  # Optional: restrict shared projects to this directory
+  patterns:
+    - name: "SharedCore"
+      pattern: "Shared.Core"
+      type: "shared-core"
+
+    - name: "SharedInfrastructure"
+      pattern: "Shared.Infrastructure"
+      type: "shared-infrastructure"
+
+dependencyRules:
+  core:
+    allowed:
+      - "Shared.Core"
+    denied:
+      - "*.Infrastructure"
+
+  infrastructure:
+    allowed:
+      - "Shared.Infrastructure"
+      - "{module}.Core"
+    denied: []
+
+  app:
+    allowed:
+      - "*"  # Allow all dependencies in App layer
+    denied: []
+
+ignoredProjects:
+  - "*.Tests"
+  - "*.Sandbox"
+  - "Prototypes.*"
+
+# Downgrade all core violations to warnings
+severityOverrides:
+  - rule: "ConfigurableRule[core]"
+    severity: "Warning"
+
+  - rule: "ConfigurableRule[infrastructure]"
+    severity: "Warning"
