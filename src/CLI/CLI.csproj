@@ -1,0 +1,53 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+
+        <!-- NuGet Package Metadata -->
+        <PackageId>ModularGuard</PackageId>
+        <Version>1.0.0</Version>
+        <Description>A CLI tool that validates project references in a modular monolith architecture. Ensures C# projects follow architectural rules to maintain clean boundaries between modules.</Description>
+        <PackageTags>architecture;linter;modular-monolith;dotnet;csharp;validation</PackageTags>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <RepositoryUrl>https://github.com/yourusername/modularguard</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackAsTool>true</PackAsTool>
+        <ToolCommandName>modularguard</ToolCommandName>
+        <TrimmerSingleWarn>false</TrimmerSingleWarn>
+
+        <!-- Trimming configuration to suppress warnings from reflection-heavy dependencies -->
+        <SuppressTrimAnalysisWarnings>false</SuppressTrimAnalysisWarnings>
+        <TrimMode>partial</TrimMode>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="../../README.md" Pack="true" PackagePath="/" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Build" Version="18.0.2" ExcludeAssets="runtime" PrivateAssets="all" />
+        <PackageReference Include="Microsoft.Build.Locator" Version="1.11.2" IsTrimmable="false" />
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="5.0.0" />
+        <PackageReference Include="Spectre.Console.Cli" Version="0.53.1" IsTrimmable="false" />
+        <PackageReference Include="YamlDotNet" Version="16.3.0" IsTrimmable="false" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <!-- Preserve assemblies that use reflection -->
+        <TrimmerRootAssembly Include="Microsoft.Build.Locator" />
+        <TrimmerRootAssembly Include="Spectre.Console.Cli" />
+        <TrimmerRootAssembly Include="YamlDotNet" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\..\.dockerignore">
+        <Link>.dockerignore</Link>
+      </Content>
+    </ItemGroup>
+
+</Project>

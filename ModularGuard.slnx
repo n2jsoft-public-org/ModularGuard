@@ -1,0 +1,12 @@
+<Solution>
+    <Folder Name="/src/">
+        <Project Path="src/CLI/CLI.csproj" />
+        <Project Path="src/LanguageServer/LanguageServer.csproj" />
+    </Folder>
+    <Folder Name="/test/">
+        <Project Path="tests/CLI.Tests/CLI.Tests.csproj" />
+    </Folder>
+    <Folder Name="/_/">
+        <File Path="AGENTS.md" />
+    </Folder>
+</Solution>

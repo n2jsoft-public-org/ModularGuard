@@ -1,0 +1,67 @@
+{
+  "modules": {
+    "patterns": [
+      {
+        "name": "Core",
+        "pattern": "*.Core",
+        "type": "core",
+        "moduleExtraction": "^([^.]+)\\.Core$"
+      },
+      {
+        "name": "Infrastructure",
+        "pattern": "*.Infrastructure",
+        "type": "infrastructure",
+        "moduleExtraction": "^([^.]+)\\.Infrastructure$"
+      },
+      {
+        "name": "Public App",
+        "pattern": "*.Public.App",
+        "type": "public-app",
+        "moduleExtraction": "^([^.]+)\\.Public\\.App$"
+      },
+      {
+        "name": "Public Endpoints",
+        "pattern": "*.Public.Endpoints",
+        "type": "public-endpoints",
+        "moduleExtraction": "^([^.]+)\\.Public\\.Endpoints$"
+      }
+    ]
+  },
+  "dependencyRules": {
+    "core": {
+      "allowed": [],
+      "denied": [
+        "*.Infrastructure",
+        "*.App",
+        "*.Endpoints"
+      ]
+    },
+    "infrastructure": {
+      "allowed": [
+        "{module}.Core"
+      ],
+      "denied": [
+        "*.App",
+        "*.Endpoints"
+      ]
+    },
+    "public-app": {
+      "allowed": [
+        "{module}.Core",
+        "{module}.Infrastructure"
+      ],
+      "denied": [
+        "*.Endpoints"
+      ]
+    },
+    "public-endpoints": {
+      "allowed": [
+        "{module}.Public.App"
+      ],
+      "denied": [
+        "{module}.Core",
+        "{module}.Infrastructure"
+      ]
+    }
+  }
+}

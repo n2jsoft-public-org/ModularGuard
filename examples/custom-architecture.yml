@@ -1,0 +1,73 @@
+# Custom Architecture Example
+# This shows how to define a completely custom architecture without shared projects
+
+modules:
+  patterns:
+    - name: "Domain"
+      pattern: "*.Domain"
+      type: "domain"
+      moduleExtraction: "^(.+)\\.Domain$"
+
+    - name: "Application"
+      pattern: "*.Application"
+      type: "application"
+      moduleExtraction: "^(.+)\\.Application$"
+
+    - name: "Persistence"
+      pattern: "*.Persistence"
+      type: "persistence"
+      moduleExtraction: "^(.+)\\.Persistence$"
+
+    - name: "API"
+      pattern: "*.API"
+      type: "api"
+      moduleExtraction: "^(.+)\\.API$"
+
+    - name: "Contracts"
+      pattern: "*.Contracts"
+      type: "contracts"
+      moduleExtraction: "^(.+)\\.Contracts$"
+
+shared:
+  # workingDirectory: "src/Shared"  # Optional: specify directory for shared projects
+  patterns: []  # No shared projects in this architecture
+
+dependencyRules:
+  domain:
+    allowed: []  # Domain has no dependencies
+    denied:
+      - "*"
+
+  application:
+    allowed:
+      - "{module}.Domain"
+      - "*.Contracts"
+    denied:
+      - "*.Persistence"
+      - "*.API"
+
+  persistence:
+    allowed:
+      - "{module}.Domain"
+    denied:
+      - "*.Application"
+      - "*.API"
+
+  api:
+    allowed:
+      - "{module}.Application"
+      - "{module}.Contracts"
+    denied:
+      - "*.Domain"
+      - "*.Persistence"
+
+  contracts:
+    allowed: []  # Contracts have no dependencies
+    denied:
+      - "*"
+
+ignoredProjects:
+  - "*.Tests"
+  - "*.IntegrationTests"
+
+severityOverrides: []

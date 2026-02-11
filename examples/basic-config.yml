@@ -1,0 +1,70 @@
+# Basic Configuration Example
+# This configuration uses the default modular monolith structure
+
+modules:
+  patterns:
+    - name: "Core"
+      pattern: "*.Core"
+      type: "core"
+      moduleExtraction: "^(.+)\\.Core$"
+
+    - name: "Infrastructure"
+      pattern: "*.Infrastructure"
+      type: "infrastructure"
+      moduleExtraction: "^(.+)\\.Infrastructure$"
+
+    - name: "AdminApp"
+      pattern: "*.Admin.App"
+      type: "admin-app"
+      moduleExtraction: "^(.+)\\.Admin\\.App$"
+
+    - name: "SharedEvents"
+      pattern: "*.Shared.Events"
+      type: "shared-events"
+      moduleExtraction: "^(.+)\\.Shared\\.Events$"
+
+shared:
+  # Optional: Restrict shared projects to a specific directory
+  # When set, only projects within this directory will match shared patterns,
+  # and module patterns will exclude this directory
+  # workingDirectory: "src/Shared"
+
+  patterns:
+    - name: "SharedCore"
+      pattern: "Shared.Core"
+      type: "shared-core"
+
+    - name: "SharedInfrastructure"
+      pattern: "Shared.Infrastructure"
+      type: "shared-infrastructure"
+
+    - name: "SharedAppAdmin"
+      pattern: "Shared.App.Admin"
+      type: "shared-app-admin"
+
+dependencyRules:
+  core:
+    allowed:
+      - "Shared.Core"
+    denied:
+      - "*.Infrastructure"
+      - "*.App"
+
+  infrastructure:
+    allowed:
+      - "Shared.Infrastructure"
+      - "{module}.Core"
+    denied:
+      - "*.App"
+
+  admin-app:
+    allowed:
+      - "Shared.App.Admin"
+      - "{module}.Core"
+      - "{module}.Infrastructure"
+      - "*.Shared.Events"
+    denied:
+      - "*.Endpoints"
+
+ignoredProjects: []
+severityOverrides: []

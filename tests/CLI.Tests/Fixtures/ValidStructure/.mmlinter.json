@@ -1,0 +1,78 @@
+{
+  "modules": {
+    "patterns": [
+      {
+        "name": "Core",
+        "pattern": "*.Core",
+        "type": "core",
+        "moduleExtraction": "^([^.]+)\\.Core$"
+      },
+      {
+        "name": "Infrastructure",
+        "pattern": "*.Infrastructure",
+        "type": "infrastructure",
+        "moduleExtraction": "^([^.]+)\\.Infrastructure$"
+      },
+      {
+        "name": "Private App",
+        "pattern": "*.Private.App",
+        "type": "private-app",
+        "moduleExtraction": "^([^.]+)\\.Private\\.App$"
+      },
+      {
+        "name": "Private Endpoints",
+        "pattern": "*.Private.Endpoints",
+        "type": "private-endpoints",
+        "moduleExtraction": "^([^.]+)\\.Private\\.Endpoints$"
+      }
+    ]
+  },
+  "shared": {
+    "patterns": [
+      {
+        "name": "Shared Core",
+        "pattern": "Shared.Core",
+        "type": "shared-core"
+      },
+      {
+        "name": "Shared Infrastructure",
+        "pattern": "Shared.Infrastructure",
+        "type": "shared-infrastructure"
+      },
+      {
+        "name": "Shared Private App",
+        "pattern": "Shared.App.Private",
+        "type": "shared-app-private"
+      }
+    ]
+  },
+  "dependencyRules": {
+    "core": {
+      "allowed": [
+        "Shared.Core"
+      ],
+      "denied": []
+    },
+    "infrastructure": {
+      "allowed": [
+        "{module}.Core",
+        "Shared.Infrastructure"
+      ],
+      "denied": []
+    },
+    "private-app": {
+      "allowed": [
+        "{module}.Core",
+        "{module}.Infrastructure",
+        "Shared.App.Private"
+      ],
+      "denied": []
+    },
+    "private-endpoints": {
+      "allowed": [
+        "{module}.Private.App"
+      ],
+      "denied": []
+    }
+  }
+}

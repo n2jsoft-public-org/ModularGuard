@@ -1,0 +1,5 @@
+services:
+  cli:
+    build:
+      dockerfile: src/CLI/Dockerfile
+      context: .

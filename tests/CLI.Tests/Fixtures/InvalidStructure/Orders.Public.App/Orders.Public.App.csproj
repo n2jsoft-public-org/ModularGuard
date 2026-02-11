@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+    </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="../Orders.Core/Orders.Core.csproj" />
+        <ProjectReference Include="../Orders.Infrastructure/Orders.Infrastructure.csproj" />
+        <!-- VIOLATION: App should not reference Endpoints -->
+        <ProjectReference Include="../Orders.Public.Endpoints/Orders.Public.Endpoints.csproj" />
+    </ItemGroup>
+</Project>

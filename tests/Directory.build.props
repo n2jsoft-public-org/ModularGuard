@@ -1,0 +1,8 @@
+<Project>
+    <Import Project="../Directory.build.props" />
+
+    <PropertyGroup>
+        <RootNamespace>$(Company).$(ProductName).$(MSBuildProjectName)</RootNamespace>
+        <AssemblyName>$(Company).$(ProductName).$(MSBuildProjectName)</AssemblyName>
+    </PropertyGroup>
+</Project>
