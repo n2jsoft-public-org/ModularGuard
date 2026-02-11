@@ -129,7 +129,7 @@ public sealed class SarifReportExporter : IReportExporter
                     {
                         Driver = new SarifToolDriver
                         {
-                            Name = "ModularGuard",
+                            Name = "Modular Monolith Linter",
                             InformationUri = "https://github.com/n2jsoft/modularguard",
                             Version = "1.0.0",
                             Rules = CreateRules(validationResult)
