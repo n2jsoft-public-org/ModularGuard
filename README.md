@@ -21,19 +21,19 @@ Install ModularGuard with a single command:
 #### Linux/macOS
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/n2jsoft/modularguard/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/n2jsoft-public-org/ModularGuard/main/install.sh | bash
 ```
 
 Or with wget:
 
 ```bash
-wget -qO- https://raw.githubusercontent.com/n2jsoft/modularguard/main/install.sh | bash
+wget -qO- https://raw.githubusercontent.com/n2jsoft-public-org/ModularGuard/main/install.sh | bash
 ```
 
 #### Windows (PowerShell)
 
 ```powershell
-irm https://raw.githubusercontent.com/n2jsoft/modularguard/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/n2jsoft-public-org/ModularGuard/main/install.ps1 | iex
 ```
 
 The installation script will:
@@ -49,12 +49,12 @@ The installation script will:
 Pull the latest Docker image from GitHub Container Registry:
 
 ```bash
-docker pull ghcr.io/n2jsoft/modularguard:latest
+docker pull ghcr.io/n2jsoft-public-org/modularguard:latest
 ```
 
 #### Option 2: Manual Binary Download
 
-Download the latest release for your platform from the [releases page](https://github.com/n2jsoft/modularguard/releases):
+Download the latest release for your platform from the [releases page](https://github.com/n2jsoft-public-org/ModularGuard/releases):
 
 - **Linux (x64)**: `modularguard-linux-x64.tar.gz`
 - **Linux (ARM64)**: `modularguard-linux-arm64.tar.gz`
@@ -82,8 +82,8 @@ Expand-Archive modularguard-win-x64.zip
 
 ```bash
 # Clone the repository
-git clone https://github.com/n2jsoft/modularguard.git
-cd modularguard
+git clone https://github.com/n2jsoft-public-org/ModularGuard.git
+cd ModularGuard
 
 # Build the project
 dotnet build
@@ -98,13 +98,13 @@ dotnet run --project src/CLI -- check <path-to-your-project>
 
 ```bash
 # Validate current directory
-docker run --rm -v $(pwd):/workspace ghcr.io/n2jsoft/modularguard:latest check /workspace
+docker run --rm -v $(pwd):/workspace ghcr.io/n2jsoft-public-org/modularguard:latest check /workspace
 
 # Validate specific directory
-docker run --rm -v /path/to/your/project:/workspace ghcr.io/n2jsoft/modularguard:latest check /workspace
+docker run --rm -v /path/to/your/project:/workspace ghcr.io/n2jsoft-public-org/modularguard:latest check /workspace
 
 # With output file
-docker run --rm -v $(pwd):/workspace ghcr.io/n2jsoft/modularguard:latest check /workspace --format json --output /workspace/report.json
+docker run --rm -v $(pwd):/workspace ghcr.io/n2jsoft-public-org/modularguard:latest check /workspace --format json --output /workspace/report.json
 ```
 
 ### Using Pre-built Binary
@@ -131,8 +131,8 @@ dotnet run --project src/CLI -- check /path/to/your/project
 
 ```bash
 # Docker
-docker run --rm -v $(pwd):/workspace ghcr.io/n2jsoft/modularguard:latest check /workspace --format json --output /workspace/report.json
-docker run --rm -v $(pwd):/workspace ghcr.io/n2jsoft/modularguard:latest check /workspace --format markdown --output /workspace/report.md
+docker run --rm -v $(pwd):/workspace ghcr.io/n2jsoft-public-org/modularguard:latest check /workspace --format json --output /workspace/report.json
+docker run --rm -v $(pwd):/workspace ghcr.io/n2jsoft-public-org/modularguard:latest check /workspace --format markdown --output /workspace/report.md
 
 # Binary
 modularguard check . --format json --output report.json
@@ -148,7 +148,7 @@ dotnet run --project src/CLI -- check . --format markdown --output report.md
 
 ```bash
 # Docker - Quiet mode (minimal output, good for CI/CD)
-docker run --rm -v $(pwd):/workspace ghcr.io/n2jsoft/modularguard:latest check /workspace --quiet
+docker run --rm -v $(pwd):/workspace ghcr.io/n2jsoft-public-org/modularguard:latest check /workspace --quiet
 
 # Binary - Verbose mode (includes file paths)
 modularguard check . --verbose
