@@ -14,9 +14,41 @@ architectural rules to maintain clean boundaries between modules.
 
 ## Installation
 
+### Option 1: Docker Image (Recommended)
+
+Pull the latest Docker image from GitHub Container Registry:
+
+```bash
+docker pull ghcr.io/n2jsoft/modularguard:latest
+```
+
+### Option 2: Download Pre-built Binary
+
+Download the latest release for your platform from the [releases page](https://github.com/n2jsoft/modularguard/releases):
+
+- **Linux (x64)**: `modularguard-linux-x64.tar.gz`
+- **macOS (x64)**: `modularguard-osx-x64.tar.gz`
+- **macOS (ARM64)**: `modularguard-osx-arm64.tar.gz`
+- **Windows (x64)**: `modularguard-win-x64.zip`
+
+Extract and optionally add to your PATH:
+
+```bash
+# Linux/macOS
+tar -xzf modularguard-*.tar.gz
+chmod +x modularguard
+sudo mv modularguard /usr/local/bin/
+
+# Windows (PowerShell)
+Expand-Archive modularguard-win-x64.zip
+# Add the extracted directory to your PATH
+```
+
+### Option 3: Build from Source
+
 ```bash
 # Clone the repository
-git clone <repository-url>
+git clone https://github.com/n2jsoft/modularguard.git
 cd modularguard
 
 # Build the project
@@ -28,7 +60,30 @@ dotnet run --project src/CLI -- check <path-to-your-project>
 
 ## Usage
 
-### Basic Usage
+### Using Docker
+
+```bash
+# Validate current directory
+docker run --rm -v $(pwd):/workspace ghcr.io/n2jsoft/modularguard:latest check /workspace
+
+# Validate specific directory
+docker run --rm -v /path/to/your/project:/workspace ghcr.io/n2jsoft/modularguard:latest check /workspace
+
+# With output file
+docker run --rm -v $(pwd):/workspace ghcr.io/n2jsoft/modularguard:latest check /workspace --format json --output /workspace/report.json
+```
+
+### Using Pre-built Binary
+
+```bash
+# Validate current directory
+modularguard check .
+
+# Validate specific directory
+modularguard check /path/to/your/project
+```
+
+### Using Source Code
 
 ```bash
 # Validate current directory
@@ -41,24 +96,31 @@ dotnet run --project src/CLI -- check /path/to/your/project
 ### Output Formats
 
 ```bash
-# JSON output to file
+# Docker
+docker run --rm -v $(pwd):/workspace ghcr.io/n2jsoft/modularguard:latest check /workspace --format json --output /workspace/report.json
+docker run --rm -v $(pwd):/workspace ghcr.io/n2jsoft/modularguard:latest check /workspace --format markdown --output /workspace/report.md
+
+# Binary
+modularguard check . --format json --output report.json
+modularguard check . --format markdown --output report.md
+modularguard check . --format json
+
+# Source
 dotnet run --project src/CLI -- check . --format json --output report.json
-
-# Markdown report
 dotnet run --project src/CLI -- check . --format markdown --output report.md
-
-# JSON to console
-dotnet run --project src/CLI -- check . --format json
 ```
 
 ### Verbosity Options
 
 ```bash
-# Quiet mode (minimal output, good for CI/CD)
-dotnet run --project src/CLI -- check . --quiet
+# Docker - Quiet mode (minimal output, good for CI/CD)
+docker run --rm -v $(pwd):/workspace ghcr.io/n2jsoft/modularguard:latest check /workspace --quiet
 
-# Verbose mode (includes file paths)
-dotnet run --project src/CLI -- check . --verbose
+# Binary - Verbose mode (includes file paths)
+modularguard check . --verbose
+
+# Source - Quiet mode
+dotnet run --project src/CLI -- check . --quiet
 ```
 
 ## Architectural Rules
