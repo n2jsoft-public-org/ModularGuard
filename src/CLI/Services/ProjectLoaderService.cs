@@ -59,7 +59,7 @@ public sealed class ProjectLoaderService : IDisposable
         }
         catch (Exception ex)
         {
-            throw new InvalidOperationException($"Failed to load project: {projectPath}", ex);
+            throw new InvalidOperationException($"Failed to load project: {projectPath}{Environment.NewLine}Error: {ex.Message}", ex);
         }
     }
 }
