@@ -49,6 +49,17 @@
             "groupName": ".NET"
         },
         {
+            "description": "No .NET major bump while the projects target net10.0 (LTS): the SDK and the images move with the TargetFramework. Remove when moving to the next LTS",
+            "matchPackageNames": [
+                "dotnet-sdk",
+                "mcr.microsoft.com/dotnet/**"
+            ],
+            "matchUpdateTypes": [
+                "major"
+            ],
+            "enabled": false
+        },
+        {
             "description": "Auto-merge non-major updates once required CI checks pass: Renovate merges them itself, after rebasing and retesting, with its bypass of the review required by the PR ruleset",
             "matchUpdateTypes": [
                 "minor",
