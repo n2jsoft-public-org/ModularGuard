@@ -27,6 +27,13 @@
             "skipArtifactsUpdate": true
         },
         {
+            "description": "Microsoft.Build 18.10+ ships for net11.0 only: on net10.0 NuGet falls back to its .NET Framework build (NU1701). Lift when the projects target net11.0",
+            "matchPackageNames": [
+                "Microsoft.Build"
+            ],
+            "allowedVersions": "(,18.10)"
+        },
+        {
             "description": "Group all GitHub Actions bumps into one PR",
             "matchManagers": [
                 "github-actions"
