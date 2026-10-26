@@ -13,7 +13,7 @@
         <PackageTags>architecture;linter;modular-monolith;dotnet;csharp;validation</PackageTags>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <RepositoryUrl>https://github.com/yourusername/modularguard</RepositoryUrl>
+        <RepositoryUrl>https://github.com/n2jsoft-public-org/ModularGuard</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackAsTool>true</PackAsTool>
         <ToolCommandName>modularguard</ToolCommandName>
