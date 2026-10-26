@@ -20,6 +20,13 @@
     ],
     "packageRules": [
         {
+            "description": "No packages.lock.json to update, and Renovate's NuGet artifact step fails on the deliberate circular reference in tests/CLI.Tests/Fixtures/InvalidStructure",
+            "matchManagers": [
+                "nuget"
+            ],
+            "skipArtifactsUpdate": true
+        },
+        {
             "description": "Group all GitHub Actions bumps into one PR",
             "matchManagers": [
                 "github-actions"
