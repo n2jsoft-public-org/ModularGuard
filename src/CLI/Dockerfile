@@ -4,16 +4,18 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG BUILD_CONFIGURATION=Release
+ARG VERSION=1.0.0
 WORKDIR /src
 COPY ["src/CLI/CLI.csproj", "src/CLI/"]
 RUN dotnet restore "src/CLI/CLI.csproj"
 COPY . .
 WORKDIR "/src/src/CLI"
-RUN dotnet build "./CLI.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./CLI.csproj" -c $BUILD_CONFIGURATION -o /app/build -p:Version=$VERSION
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./CLI.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+ARG VERSION=1.0.0
+RUN dotnet publish "./CLI.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false -p:Version=$VERSION
 
 FROM base AS final
 WORKDIR /app

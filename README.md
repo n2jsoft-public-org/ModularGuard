@@ -18,6 +18,12 @@ architectural rules to maintain clean boundaries between modules.
 
 Install ModularGuard with a single command:
 
+#### Homebrew (macOS/Linux)
+
+```bash
+brew install --cask n2jsoft-public-org/tap/modularguard
+```
+
 #### Linux/macOS
 
 ```bash

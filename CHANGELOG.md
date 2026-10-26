@@ -5,6 +5,9 @@ All notable changes to ModularGuard will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+Releases are now cut automatically from conventional commits on `main`: see the
+[GitHub releases](https://github.com/n2jsoft-public-org/ModularGuard/releases) for their notes.
+
 ## [1.0.0] - 2026-02-10
 
 ### Added
